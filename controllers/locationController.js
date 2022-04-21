@@ -4,7 +4,7 @@ const Location = require('../models/location')
 
 router.get('/locations', async (req, res)=>{
     try{
-        const locations = await Locations.find();
+        const locations = await Location.find();
         res.send({
             success: true,
             data: locations
@@ -65,10 +65,10 @@ router.delete('/locations/:id', async (req, res)=>{
 
 router.put('/locations/:id', async (req, res)=>{
     try{
-        const equip = await Equipment.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const location = await Location.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.send({
             success: true,
-            data: equip
+            data: location
         })
     }catch(err){
         res.send({
