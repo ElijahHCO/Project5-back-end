@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//User model
+
 const equipmentSchema = new Schema({
     type: {type:String, required: true},
     productBrand: {type:String, required: true},
