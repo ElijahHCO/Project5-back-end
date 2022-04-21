@@ -2,7 +2,7 @@ const express = require('express');
 const router = express();
 const Location = require('../models/location')
 
-router.get('/locations', async (req, res)=>{
+router.get('/', async (req, res)=>{
     try{
         const locations = await Location.find();
         res.send({
@@ -16,7 +16,7 @@ router.get('/locations', async (req, res)=>{
         })
     }
 })
-router.post('/locations', async (req, res)=>{
+router.post('/', async (req, res)=>{
     try{
         const newLocation = await Location.create(req.body);
         res.send({
@@ -30,7 +30,7 @@ router.post('/locations', async (req, res)=>{
         })
     }
 })
-router.get('/locations/:id', async (req, res)=>{
+router.get('/:id', async (req, res)=>{
     try{
         const location = await Location.findById(req.params.id);
         if(!location){
@@ -48,7 +48,7 @@ router.get('/locations/:id', async (req, res)=>{
     }
 })
 
-router.delete('/locations/:id', async (req, res)=>{
+router.delete('/:id', async (req, res)=>{
     try{
         const location = await Location.findByIdAndDelete(req.params.id);
         res.send({
@@ -63,7 +63,7 @@ router.delete('/locations/:id', async (req, res)=>{
     }
 })
 
-router.put('/locations/:id', async (req, res)=>{
+router.put('/:id', async (req, res)=>{
     try{
         const location = await Location.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.send({
