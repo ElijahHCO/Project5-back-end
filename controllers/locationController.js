@@ -4,7 +4,7 @@ const Location = require('../models/location')
 
 router.get('/', async (req, res)=>{
     try{
-        const locations = await Location.find();
+        const locations = await Location.find().populate();
         res.send({
             success: true,
             data: locations
@@ -32,7 +32,7 @@ router.post('/', async (req, res)=>{
 })
 router.get('/:id', async (req, res)=>{
     try{
-        const location = await Location.findById(req.params.id);
+        const location = await Location.findById(req.params.id).populate();
         if(!location){
             throw new Error("No location with that ID!")
         }
@@ -50,7 +50,7 @@ router.get('/:id', async (req, res)=>{
 
 router.delete('/:id', async (req, res)=>{
     try{
-        const location = await Location.findByIdAndDelete(req.params.id);
+        const location = await Location.findByIdAndDelete(req.params.id).populate();
         res.send({
             success: true,
             data: location
@@ -65,7 +65,7 @@ router.delete('/:id', async (req, res)=>{
 
 router.put('/:id', async (req, res)=>{
     try{
-        const location = await Location.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const location = await Location.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate();
         res.send({
             success: true,
             data: location
