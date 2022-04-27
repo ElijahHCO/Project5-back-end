@@ -16,6 +16,7 @@ router.get('/', async (req, res)=>{
         })
     }
 })
+
 router.post('/', async (req, res)=>{
     try{
         const newEquip = await Equipment.create(req.body);
