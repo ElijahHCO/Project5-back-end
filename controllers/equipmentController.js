@@ -4,7 +4,7 @@ const Equipment = require('../models/equipment')
 
 router.get('/', async (req, res)=>{
     try{
-        const equips = await Equipment.find();
+        const equips = await Equipment.find().populate("location");
         res.send({
             success: true,
             data: equips
@@ -16,6 +16,7 @@ router.get('/', async (req, res)=>{
         })
     }
 })
+
 router.post('/', async (req, res)=>{
     try{
         const newEquip = await Equipment.create(req.body);
@@ -32,7 +33,7 @@ router.post('/', async (req, res)=>{
 })
 router.get('/ski', async (req, res)=>{
     try{
-        const ski = await Equipment.find({type: "Ski"})
+        const ski = await Equipment.find({type: "Ski"}).populate("location")
         res.send({
             success: true,
             data: ski
@@ -46,7 +47,7 @@ router.get('/ski', async (req, res)=>{
 })
 router.get('/snowboard', async (req, res)=>{
     try{
-        const snow = await Equipment.find({type: "Snowboard"})
+        const snow = await Equipment.find({type: "Snowboard"}).populate("location")
         res.send({
             success: true,
             data: snow
@@ -60,7 +61,7 @@ router.get('/snowboard', async (req, res)=>{
 })
 router.get('/:id', async (req, res)=>{
     try{
-        const equip = await Equipment.findById(req.params.id);
+        const equip = await Equipment.findById(req.params.id).populate("location");
         if(!equip){
             throw new Error("No equipment with that ID!")
         }
@@ -78,7 +79,7 @@ router.get('/:id', async (req, res)=>{
 
 router.delete('/:id', async (req, res)=>{
     try{
-        const equip = await Equipment.findByIdAndDelete(req.params.id);
+        const equip = await Equipment.findByIdAndDelete(req.params.id).populate("location");
         res.send({
             success: true,
             data: equip
@@ -93,7 +94,7 @@ router.delete('/:id', async (req, res)=>{
 
 router.put('/:id', async (req, res)=>{
     try{
-        const equip = await Equipment.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const equip = await Equipment.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate("location");
         res.send({
             success: true,
             data: equip
