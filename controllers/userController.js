@@ -11,16 +11,24 @@ router.post('/signup', async (req, res) => {
         password: await bcrypt.hash(req.body.password, 10),
     })
     signedUpUser.save()
-    .then(data => {
-        res.json(data)
-    })
-    .catch(err=>{
-        console.log(err)
-    })
+        .then(data => {
+            res.json(data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 })
 
-router.post('/login', (req, res)=>{
+router.post('/login', async (req, res) => {
+    try {
+        const dbUser = await user.findOne({ email: req.body.email });
+        const match = await bcrypt.compare(req.body.password, dbUser.password);
 
+        res.send(match)
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
 })
 module.exports = router
 
